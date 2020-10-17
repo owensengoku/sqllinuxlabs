@@ -158,6 +158,30 @@ sudo yum install http://mirror.centos.org/centos/7/extras/x86_64/Packages/pigz-2
 
 sudo yum install docker-ce
  ```
+Ref : https://stackoverflow.com/questions/45272827/docker-ce-on-rhel-requires-container-selinux-2-9
+
+```
+Error: Package: 2:container-selinux-2.74-1.el7.noarch (rhel-7-server-extras-rpms)
+
+Requires: selinux-policy >= 3.13.1-216.el7
+
+Installed: selinux-policy-3.13.1-192.el7_5.6.noarch (@rhel-7-server-rpms)
+
+selinux-policy = 3.13.1-192.el7_5.6
+
+there is dependency issue with the container-selinux version
+to fix this error on rhel 7.x i have performed the below things
+
+1) yum install http://vault.centos.org/centos/7.3.1611/extras/x86_64/Packages/container-selinux-2.9-4.el7.noarch.rpm
+
+2) yum install -y yum-utils device-mapper-persistent-data lvm2
+
+3) yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+4 ) yum install docker-ce
+
+now start the docker service
+```
 
 check status of docker engine:
 ```
